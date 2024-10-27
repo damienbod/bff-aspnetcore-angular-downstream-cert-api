@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
 
   getDownstreamApiData() {
     this.downstreamApiData$ = this.httpClient.get<string[]>(
-      `${this.getCurrentHost()}/api/Downstream`
+      `${this.getCurrentHost()}/WeatherForecast`
     );
   }
 
