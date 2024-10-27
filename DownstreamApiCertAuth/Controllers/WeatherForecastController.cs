@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AzureCertAuth.Controllers;
+namespace DownstreamApiCertAuth.Controllers;
 
 [Authorize]
 [ApiController]

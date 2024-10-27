@@ -1,20 +1,19 @@
+using Microsoft.AspNetCore.Authentication.Certificate;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Logging;
+using Serilog;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
-using Microsoft.AspNetCore.Authentication.Certificate;
 
-namespace AzureCertAuth;
+namespace DownstreamApiCertAuth;
 
-public class Startup
+internal static class StartupExtensions
 {
-    public Startup(IConfiguration configuration)
+    public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
-        Configuration = configuration;
-    }
+        var services = builder.Services;
+        var configuration = builder.Configuration;
 
-    public IConfiguration Configuration { get; }
-
-    public void ConfigureServices(IServiceCollection services)
-    {
         services.AddSingleton<MyCertificateValidationService>();
 
         services.AddCertificateForwarding(options =>
@@ -30,7 +29,7 @@ public class Startup
                     clientCertificate = new X509Certificate2(bytes);
                 }
 
-                return clientCertificate;
+                return clientCertificate!;
             };
         });
 
@@ -39,7 +38,7 @@ public class Startup
             {
                 // https://docs.microsoft.com/en-us/aspnet/core/security/authentication/certauth
                 options.AllowedCertificateTypes = CertificateTypes.SelfSigned;
-                
+
                 // Default values
                 //options.AllowedCertificateTypes = CertificateTypes.Chained;
                 //options.RevocationFlag = X509RevocationFlag.ExcludeRoot;
@@ -77,12 +76,18 @@ public class Startup
 
         services.AddAuthorization();
         services.AddControllers();
+
+        return builder.Build();
     }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public static WebApplication ConfigurePipeline(this WebApplication app)
     {
-        if (env.IsDevelopment())
+        IdentityModelEventSource.ShowPII = true;
+        JsonWebTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+        app.UseSerilogRequestLogging();
+
+        if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
         }
@@ -95,9 +100,8 @@ public class Startup
         app.UseAuthentication();
         app.UseAuthorization();
 
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllers();
-        });
+        app.MapControllers();
+
+        return app;
     }
 }

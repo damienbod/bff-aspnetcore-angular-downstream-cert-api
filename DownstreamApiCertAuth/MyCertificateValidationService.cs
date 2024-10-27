@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 
-namespace AzureCertAuth;
+namespace DownstreamApiCertAuth;
 
 public class MyCertificateValidationService 
 {

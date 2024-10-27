@@ -1,4 +1,4 @@
-namespace AzureCertAuth;
+namespace DownstreamApiCertAuth;
 
 public class WeatherForecast
 {
