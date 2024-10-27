@@ -6,7 +6,7 @@
   <div *ngIf="userProfileClaims?.isAuthenticated; else noAuth">
     <button (click)="getDirectApiData()">get data from API direct</button>
     <button (click)="getDownstreamApiData()">
-      get data from downstream API
+      get downstream data using API Cert Auth
     </button>
     <form method="post" action="api/Account/Logout">
       <button class="btn btn-link" type="submit">Sign out</button>
@@ -23,7 +23,7 @@
   <h2>get direct data using API:</h2>
   <pre>{{ dataFromAzureProtectedApi$ | async | json }}</pre>
 
-  <h2>get downstream data using API:</h2>
+  <h2>get downstream data using API Cert Auth:</h2>
   <pre>{{ downstreamApiData$ | async | json }}</pre>
 </ng-container>
 
