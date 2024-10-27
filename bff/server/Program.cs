@@ -9,6 +9,8 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using NetEscapades.AspNetCore.SecurityHeaders.Infrastructure;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,9 +79,29 @@ services.AddRazorPages().AddMvcOptions(options =>
 
 builder.Services.AddSingleton<ApiTokenCacheClient>();
 
-builder.Services.AddReverseProxy()
-   .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"))
-   .AddTransforms<JwtTransformProvider>();
+// For OAuth2 JWT Bearer token validation
+//builder.Services.AddReverseProxy()
+//   .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"))
+//   .AddTransforms<JwtTransformProvider>();
+
+// Create an authorization policy used by YARP when forwarding requests
+builder.Services.AddAuthorization(options => options.AddPolicy("CookieAuthenticationPolicy", builder =>
+{
+    builder.AddAuthenticationSchemes(CookieAuthenticationDefaults.AuthenticationScheme);
+    builder.RequireAuthenticatedUser();
+}));
+
+var cert = new X509Certificate2("client.pfx", "1234");
+
+services.AddReverseProxy()
+    .ConfigureHttpClient((context, handler) =>
+    {
+        handler.SslOptions = new SslClientAuthenticationOptions
+        {
+            ClientCertificates = [cert]
+        };
+    })
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
 var app = builder.Build();
 
