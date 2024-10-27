@@ -16,4 +16,10 @@
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="client.pfx">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>
