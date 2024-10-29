@@ -21,6 +21,7 @@ internal static class StartupExtensions
             options.CertificateHeader = "X-ARR-ClientCert";
             options.HeaderConverter = (headerValue) =>
             {
+                Console.WriteLine("headerValue: " + headerValue);
 
                 X509Certificate2? clientCertificate = null;
                 if (!string.IsNullOrWhiteSpace(headerValue))
@@ -96,7 +97,11 @@ internal static class StartupExtensions
 
         app.UseRouting();
 
-        //app.UseCertificateForwarding();
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseCertificateForwarding();
+        }
+
         app.UseAuthentication();
         app.UseAuthorization();
 
