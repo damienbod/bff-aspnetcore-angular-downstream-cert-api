@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
-namespace AzureCertAuthClientConsole;
+namespace TestCertAuthClientConsole;
 
 class Program
 {
