@@ -1,6 +1,6 @@
 # BFF secured ASP.NET Core application using downstream API and certificate authentication
 
-![image.png](images/context.svg)
+![image.png](images/context.drawio.png)
 
 ## Debugging
 
