@@ -7,16 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="client.pfx" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include="client.pfx">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.10" NoWarn="NU1605" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10" />
 		<PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.0.0-preview.1" />
@@ -24,6 +14,12 @@
 		<PackageReference Include="Yarp.ReverseProxy" Version="2.2.0" />
     <PackageReference Include="IdentityModel" Version="7.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="client.pfx">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>
