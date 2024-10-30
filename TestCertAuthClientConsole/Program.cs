@@ -25,7 +25,7 @@ class Program
         var url = "https://localhost:44361/WeatherForecast";
         //var url = "https://azurecertauth20201108214641.azurewebsites.net/WeatherForecast";
         var request = new HttpRequestMessage()
-        {     
+        {
             RequestUri = new Uri(url),
             Method = HttpMethod.Get,
         };

@@ -2,7 +2,7 @@
 
 namespace DownstreamApiCertAuth;
 
-public class MyCertificateValidationService 
+public class MyCertificateValidationService
 {
     private readonly ILogger<MyCertificateValidationService> _logger;
 
