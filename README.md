@@ -30,6 +30,7 @@ Or just open Visual Studio and run the solution.
 
 ## History
 
+- 2024-10-30 Fixed local certificate authentication
 - 2024-10-27 Initial version
 
 ## Angular nx Updates
