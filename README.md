@@ -63,3 +63,5 @@ https://github.com/damienbod/bff-MicrosoftEntraExternalID-aspnetcore-angular
 https://microsoft.github.io/reverse-proxy/articles/transforms.html
 
 https://github.com/microsoft/reverse-proxy/tree/main/samples/ReverseProxy.Transforms.Sample
+
+https://dev.to/koheikawata/client-certifiate-authenticaiton-of-net-60-web-api-i9i#webserver-local

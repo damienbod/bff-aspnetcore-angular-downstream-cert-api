@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Certificate;
+using Microsoft.AspNetCore.Server.Kestrel.Https;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Logging;
 using Serilog;
@@ -13,6 +14,18 @@ internal static class StartupExtensions
     {
         var services = builder.Services;
         var configuration = builder.Configuration;
+
+        if(builder.Environment.IsDevelopment())
+        {
+            builder.WebHost.ConfigureKestrel((context, serverOptions) =>
+            {
+                serverOptions.ConfigureHttpsDefaults(listenOptions =>
+                {
+                    listenOptions.ClientCertificateMode = ClientCertificateMode.RequireCertificate;
+                    listenOptions.AllowAnyClientCertificate();
+                });
+            });
+        }
 
         services.AddSingleton<MyCertificateValidationService>();
 
@@ -38,14 +51,14 @@ internal static class StartupExtensions
             .AddCertificate(options => // code from ASP.NET Core sample
             {
                 // https://docs.microsoft.com/en-us/aspnet/core/security/authentication/certauth
-                options.AllowedCertificateTypes = CertificateTypes.SelfSigned;
+                options.AllowedCertificateTypes = CertificateTypes.All;
 
                 // Default values
                 //options.AllowedCertificateTypes = CertificateTypes.Chained;
                 //options.RevocationFlag = X509RevocationFlag.ExcludeRoot;
-                //options.RevocationMode = X509RevocationMode.Online;
-                //options.ValidateCertificateUse = true;
-                //options.ValidateValidityPeriod = true;
+                options.RevocationMode = X509RevocationMode.NoCheck;
+                options.ValidateCertificateUse = false;
+                options.ValidateValidityPeriod = false;
 
                 options.Events = new CertificateAuthenticationEvents
                 {
@@ -71,7 +84,12 @@ internal static class StartupExtensions
                         }
 
                         return Task.CompletedTask;
-                    }
+                    },
+                    OnAuthenticationFailed = new Func<CertificateAuthenticationFailedContext, Task>(context =>
+                    {
+                        Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
+                        return Task.CompletedTask;
+                    })
                 };
             });
 
