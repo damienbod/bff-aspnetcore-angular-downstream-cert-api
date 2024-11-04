@@ -1,6 +1,6 @@
 # BFF secured ASP.NET Core application using downstream API and certificate authentication
 
-[ASP.NET Core and Angular BFF using a YARP downstream API protected using certificate authentication](https://damienbod.com)
+[ASP.NET Core and Angular BFF using a YARP downstream API protected using certificate authentication](https://damienbod.com/2024/11/04/asp-net-core-and-angular-bff-using-a-yarp-downstream-api-protected-using-certificate-authentication/)
 
 ![image.png](images/context.drawio.png)
 
