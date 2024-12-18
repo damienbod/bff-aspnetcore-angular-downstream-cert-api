@@ -25,12 +25,12 @@ public class MyCertificateValidationService
 
         if (listOfValidThumbprints.Contains(clientCertificate.Thumbprint))
         {
-            _logger.LogInformation($"Custom auth-success for certificate  {clientCertificate.FriendlyName} {clientCertificate.Thumbprint}");
+            _logger.LogInformation("Custom auth-success for certificate  {FriendlyName} {Thumbprint}", clientCertificate.FriendlyName, clientCertificate.Thumbprint);
 
             return true;
         }
 
-        _logger.LogWarning($"auth failed for certificate  {clientCertificate.FriendlyName} {clientCertificate.Thumbprint}");
+        _logger.LogWarning("Auth failed for certificate {FriendlyName} {Thumbprint}", clientCertificate.FriendlyName, clientCertificate.Thumbprint);
 
         return false;
     }
