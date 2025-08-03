@@ -32,6 +32,7 @@ Or just open Visual Studio and run the solution.
 
 ## History
 
+- 2025-08-03 Updated packages, Angular 20.1.4
 - 2024-12-18 Bootstrap 5
 - 2024-12-18 .NET 9, Angular 19, OpenIddict 6.0
 - 2024-11-01 Small updates and fixes
