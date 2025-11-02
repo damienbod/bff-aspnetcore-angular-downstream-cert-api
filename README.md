@@ -26,12 +26,12 @@ Or just open Visual Studio and run the solution.
 - Yarp.ReverseProxy
 - OpenIddict
 - ASP.NET Core
-- Angular 
-- Nx
+- Angular
 - OpenIddict
 
 ## History
 
+- 2025-11-02 Updated packages, Angular 20.3.0
 - 2025-08-03 Updated packages, Angular 20.1.4
 - 2024-12-18 Bootstrap 5
 - 2024-12-18 .NET 9, Angular 19, OpenIddict 6.0
