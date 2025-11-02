@@ -25,11 +25,16 @@ var configuration = builder.Configuration;
 var stsServer = configuration["OpenIDConnectSettings:Authority"];
 
 services.AddSecurityHeaderPolicies()
-  .SetPolicySelector((PolicySelectorContext ctx) =>
-  {
-      return SecurityHeadersDefinitions.GetHeaderPolicyCollection(
-          builder.Environment.IsDevelopment(), stsServer);
-  });
+    .SetPolicySelector(ctx =>
+    {
+        if (ctx.HttpContext.Request.Path.StartsWithSegments("/api"))
+        {
+            return ApiSecurityHeadersDefinitions.GetHeaderPolicyCollection(builder.Environment.IsDevelopment());
+        }
+
+        return SecurityHeadersDefinitions.GetHeaderPolicyCollection(
+            builder.Environment.IsDevelopment(), stsServer);
+    });
 
 services.AddAntiforgery(options =>
 {
