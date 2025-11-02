@@ -26,7 +26,7 @@ jobs:
         working-directory: bff/ui
         run: npm install --force
 
-      - name: ui-nx-build
+      - name: ui-angular-build
         working-directory: bff/ui
         run: npm run build
 

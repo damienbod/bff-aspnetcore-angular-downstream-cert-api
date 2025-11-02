@@ -9,7 +9,7 @@
 Start the Angular project from the **ui** folder
 
 ```
-nx serve --ssl
+ng serve --ssl
 ```
 
 Start the ASP.NET Core projects from the **server** folder and the **identityProvider**
@@ -39,12 +39,14 @@ Or just open Visual Studio and run the solution.
 - 2024-10-30 Fixed local certificate authentication
 - 2024-10-27 Initial version
 
-## Angular nx Updates
+## Angular CLI Updates
 
 ```
-nx migrate latest
+npm install @angular/cli -g latest
 
-nx migrate --run-migrations=migrations.json
+npm install --force
+
+npm run build
 ```
 
 ## Links
